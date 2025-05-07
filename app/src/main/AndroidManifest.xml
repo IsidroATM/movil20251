@@ -15,20 +15,30 @@
         android:theme="@style/Theme.HelloAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".FormColorActivity"
-            android:exported="true" >
-
-        </activity>
-        <activity
-            android:name=".CreateColorActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".ColorListActivity"
+            android:name=".ContactListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".RegisterContactActivity"
+            android:exported="true">
+
+
+        </activity>
+        <activity
+            android:name=".FormColorActivity"
+            android:exported="true" />
+        <activity
+            android:name=".CreateColorActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ColorListActivity"
+            android:exported="true">
+
         </activity>
         <activity
             android:name=".SecondActivity"

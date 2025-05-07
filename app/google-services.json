@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "568236307398",
-    "project_id": "colorsappv2",
-    "storage_bucket": "colorsappv2.firebasestorage.app"
+    "project_number": "77795768094",
+    "project_id": "aplicacioncontactos-8b749",
+    "storage_bucket": "aplicacioncontactos-8b749.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:568236307398:android:0fe6d251ceac5cf37238c7",
+        "mobilesdk_app_id": "1:77795768094:android:3c29ed1e844460db94bb0f",
         "android_client_info": {
           "package_name": "com.example.helloandroid"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAL3lOoPp4tKmiFKoZxXIJp1-Ap-VUq2MQ"
+          "current_key": "AIzaSyAel_3kPg0DjXu8mcoVxOLuWzoGVmYgDfs"
         }
       ],
       "services": {
