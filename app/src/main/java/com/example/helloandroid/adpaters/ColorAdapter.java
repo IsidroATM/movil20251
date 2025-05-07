@@ -22,6 +22,15 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
 
     private List<Color> data;
     private Activity activity;
+
+    // Definir la interfaz OnColorLongClickListener
+    private OnColorLongClickListener longClickListener;
+
+    //Método para establecer el listener
+    public void setOnColorLongClickListener(OnColorLongClickListener listener) {
+        this.longClickListener = listener;
+    }
+
     public ColorAdapter(List<Color> data, Activity activity) {
 
         this.data = data;
@@ -49,6 +58,15 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
         View vColorBg = holder.itemView.findViewById(R.id.vColorBg);
 
         tvColorName.setText(color.nombre);
+
+        // Clic largo en el itemView
+        holder.itemView.setOnLongClickListener(v -> {
+            if (longClickListener != null) {
+                longClickListener.onColorLongClick(color, holder.getAdapterPosition()); // Llama al listener
+                return true; // El evento fue consumido
+            }
+            return false;
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,5 +102,10 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
         public ColorViewHolder(@NonNull View itemView) {
             super(itemView);
         }
+    }
+
+    // Definir la interfaz OnColorLongClickListener
+    public interface OnColorLongClickListener {
+        void onColorLongClick(Color color, int position);
     }
 }
