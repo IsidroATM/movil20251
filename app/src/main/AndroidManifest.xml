@@ -15,27 +15,36 @@
         android:theme="@style/Theme.HelloAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".FormColorActivity"
+            android:name=".FormContactActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="true" >
-
-        </activity>
-        <activity
-            android:name=".CreateColorActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".ColorListActivity"
-            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+
+        </activity>
+        <activity
+            android:name=".FormColorActivity"
+            android:exported="true"></activity>
+        <activity
+            android:name=".CreateColorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ColorListActivity"
+            android:exported="true"></activity>
+        <activity
             android:name=".SecondActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
 </manifest>

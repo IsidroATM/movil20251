@@ -2,6 +2,13 @@
     <string name="app_name">HelloAndroid</string>
     <string name="create_account">Crear Cuenta</string>
     <string name="login">Iniciar Sesión</string>
-    <string name="email">Email</string>
+    <string name="email">Correo Electrónico</string>
     <string name="password_hint">*******</string>
+    <string name="password">Contraseña</string>
+    <string name="name">Nombre</string>
+    <string name="phone">Teléfono</string>
+    <string name="address">Dirección</string>
+    <string name="create_contact">Crear Contacto</string>
+    <string name="add_photo">Agregar Foto</string>
+    <string name="avatar">Avatar</string>
 </resources>
