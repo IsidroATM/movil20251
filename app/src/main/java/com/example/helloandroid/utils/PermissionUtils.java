@@ -13,4 +13,18 @@ public class PermissionUtils {
     public static void requestCameraPermission(Activity activity) {
         activity.requestPermissions(new String[]{Manifest.permission.CAMERA}, 100);
     }
+
+
+    public static boolean checkGPSPermission(Activity activity) {
+        return activity.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    public static void requestGPSPermission(Activity activity) {
+        activity.requestPermissions(
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                101
+        );
+    }
+
 }
