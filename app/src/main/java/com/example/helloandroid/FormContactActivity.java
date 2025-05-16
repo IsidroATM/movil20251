@@ -2,13 +2,20 @@ package com.example.helloandroid;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -34,6 +41,8 @@ public class FormContactActivity extends AppCompatActivity {
     Button avatarBtn;
     Button submitBtn;
     ImageView avatarImage;
+    SharedPreferences preferences;
+    AutoCompleteTextView addressInput;
 
     Uri avatarUri;
 
@@ -47,6 +56,8 @@ public class FormContactActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        preferences = getSharedPreferences("com.example.helloandroid.preferences", MODE_PRIVATE);
 
         setupView();
     }
@@ -105,13 +116,35 @@ public class FormContactActivity extends AppCompatActivity {
         avatarImage = findViewById(R.id.avatarImage);
         avatarBtn = findViewById(R.id.avatarBtn);
         submitBtn = findViewById(R.id.submitBtn);
+        addressInput = findViewById(R.id.addressInput);
 
         avatarBtn.setOnClickListener(v -> {
             openCamera();
         });
 
         submitBtn.setOnClickListener(v -> {
-            saveContact();
+        });
+
+        String[] cities =  new String[] {"Lima", "Cajamarca", "Piura"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, cities);
+        addressInput.setAdapter(adapter);
+        addressInput.setThreshold(1);
+
+        addressInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.e("MAIN_APP", s.toString());// aqui lla mo apì de goole y actualizo adpataer
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
         });
     }
 

@@ -11,4 +11,5 @@
     <string name="create_contact">Crear Contacto</string>
     <string name="add_photo">Agregar Foto</string>
     <string name="avatar">Avatar</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>
