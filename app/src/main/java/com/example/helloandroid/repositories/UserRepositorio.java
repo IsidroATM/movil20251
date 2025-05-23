@@ -34,4 +34,8 @@ public class UserRepositorio {
 
         return users;
     }
+
+    public void create(User user) {
+        db.userDao().insert(user);
+    }
 }

@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.helloandroid.daos.UserDao;
@@ -19,11 +21,11 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserActivity extends AppCompatActivity {
-
-    UserRepositorio userRepository;
+    private UserRepositorio userRepository;
+    private RecyclerView recyclerView;
+    private UserAdapter userAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +41,30 @@ public class UserActivity extends AppCompatActivity {
         userRepository = new UserRepositorio(AppDatabase.getInstance(this));
 
 
-        for (User user: userRepository.getAll()) {
-            Log.i("MAIN_APP UserActivity", user.email);
-            Log.i("MAIN_APP UserActivity", user.city.name);
-        }
+        fillData();
 
+        recyclerView = findViewById(R.id.userRecyclerView);
+        
+        // Configure RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        userAdapter = new UserAdapter(new ArrayList<>());
+        recyclerView.setAdapter(userAdapter);
+        
+        // Load data
+        List<User> users = userRepository.getAll();
+        userAdapter.setUsers(users);
 
         //Log.i("MAIN_APP UserActivity", new Gson().toJson(db.userDao().getAll()));
-
     }
 
     public void fillData(){
-//        db.cityDao().insert(new City("Lima"));
-//        db.cityDao().insert(new City("Cajamarca"));
+        Log.d("MAIN_APP UserActivity", new Gson().toJson(userRepository.getAll()));
 
+//        City city1 = new City();
+//        city1.name = "City 1";
+//
+//        AppDatabase.getInstance(this).cityDao().insert(city1);
 
+        // Method to fill data if needed
     }
 }
