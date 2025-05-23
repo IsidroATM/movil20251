@@ -30,11 +30,20 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.helloandroid.utils.PermissionUtils;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import com.google.android.libraries.places.api.Places;
+
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FormContactActivity extends AppCompatActivity {
 
@@ -43,6 +52,7 @@ public class FormContactActivity extends AppCompatActivity {
     ImageView avatarImage;
     SharedPreferences preferences;
     AutoCompleteTextView addressInput;
+    PlacesClient placesClient;
 
     Uri avatarUri;
 
@@ -58,6 +68,10 @@ public class FormContactActivity extends AppCompatActivity {
         });
 
         preferences = getSharedPreferences("com.example.helloandroid.preferences", MODE_PRIVATE);
+
+        if (!Places.isInitialized()) {
+            Places.initialize(getApplicationContext(), "AIzaSyAT2-leUVTE-5ldONhJ7FtSJaPcZqdkpi4");
+        }
 
         setupView();
     }
@@ -138,7 +152,10 @@ public class FormContactActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.e("MAIN_APP", s.toString());// aqui lla mo apì de goole y actualizo adpataer
+                Log.e("MAIN_APP", s.toString());
+                if (s.length() >= 3) {
+                    fetchPlacePredictions(s.toString());
+                }
             }
 
             @Override
@@ -148,4 +165,35 @@ public class FormContactActivity extends AppCompatActivity {
         });
     }
 
+    private void fetchPlacePredictions(String query) {
+        if (placesClient == null) {
+            placesClient = Places.createClient(this);
+        }
+
+        AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+
+        FindAutocompletePredictionsRequest request = FindAutocompletePredictionsRequest.builder()
+                .setTypeFilter(TypeFilter.ADDRESS) // Solo direcciones
+                .setSessionToken(token)
+                .setQuery(query)
+                .build();
+
+        placesClient.findAutocompletePredictions(request)
+                .addOnSuccessListener((response) -> {
+                    List<String> suggestions = new ArrayList<>();
+                    for (AutocompletePrediction prediction : response.getAutocompletePredictions()) {
+                        suggestions.add(prediction.getFullText(null).toString());
+                    }
+
+                    ArrayAdapter<String> newAdapter = new ArrayAdapter<>(this,
+                            android.R.layout.simple_dropdown_item_1line, suggestions);
+                    addressInput.setAdapter(newAdapter);
+                    newAdapter.notifyDataSetChanged();
+                    Log.d("PLACES_API", "Sugerencias recibidas: " + suggestions.size());
+
+                })
+                .addOnFailureListener((exception) -> {
+                    Log.e("PLACES_API", "Error obteniendo sugerencias", exception);
+                });
+    }
 }
